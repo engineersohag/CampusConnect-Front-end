@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CampusConnect</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0a2463; /* Navy Blue */
+            --secondary-color: #3e92cc; /* Light Blue */
+            --accent-color: #2ec4b6; /* Teal/Green */
+            --admin-red: #dc3545;
+            --admin-orange: #fd7e14;
+            --admin-purple: #6f42c1;
+            --admin-green: #28a745;
+            --sidebar-width: 250px;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        /* ============================================
+            ADMIN HEADER
+        ============================================= */
+        .admin-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .admin-header .brand {
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .admin-header .admin-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        /* ============================================
+            ADMIN SIDEBAR
+        ============================================= */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            min-height: calc(100vh - 70px);
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            position: fixed;
+            left: 0;
+            top: 70px;
+            overflow-y: auto;
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+        
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+        
+        .sidebar-nav .nav-item {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-nav .nav-link {
+            padding: 12px 20px;
+            color: #495057;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-nav .nav-link:hover, 
+        .sidebar-nav .nav-link.active {
+            background-color: rgba(10, 36, 99, 0.05);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+        
+        .sidebar-nav .nav-link i {
+            width: 24px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .sidebar-nav .nav-link .badge {
+            margin-left: auto;
+            font-size: 0.75rem;
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+        }
+        
+        .sidebar-footer small {
+            color: #6c757d;
+        }
+        
+        /* ============================================
+            MAIN CONTENT AREA
+        ============================================= */
+        .admin-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s;
+        }
+        
+        .page-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .page-header p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        
+        /* ============================================
+            STATS CARDS
+        ============================================= */
+        .stats-card {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+        
+        .stats-card-users {
+            background-color: rgba(10, 36, 99, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .stats-card-active {
+            background-color: rgba(46, 196, 182, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .stats-card-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .stats-card-posts {
+            background-color: rgba(111, 66, 193, 0.1);
+            color: var(--admin-purple);
+        }
+        
+        .stats-card-content h3 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stats-card-content p {
+            color: #6c757d;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* ============================================
+            ADMIN CARDS
+        ============================================= */
+        .admin-card {
+            background-color: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .card-header h5 {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-header h5 i {
+            margin-right: 10px;
+        }
+        
+        /* ============================================
+            TABLES
+        ============================================= */
+        .admin-table {
+            margin-bottom: 0;
+        }
+        
+        .admin-table th {
+            background-color: #f8f9fa;
+            border-top: none;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 15px 20px;
+        }
+        
+        .admin-table td {
+            padding: 15px 20px;
+            vertical-align: middle;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--admin-green);
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .status-suspended {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--admin-red);
+        }
+        
+        .status-inactive {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+        
+        .role-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .role-admin {
+            background-color: rgba(10, 36, 99, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .role-alumni {
+            background-color: rgba(46, 196, 182, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .role-student {
+            background-color: rgba(62, 146, 204, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        /* ============================================
+            POST MODERATION
+        ============================================= */
+        .post-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .post-item:last-child {
+            border-bottom: none;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-type {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .post-type-job {
+            color: var(--primary-color);
+        }
+        
+        .post-type-event {
+            color: var(--admin-purple);
+        }
+        
+        .post-type-forum {
+            color: var(--admin-orange);
+        }
+        
+        .post-content {
+            margin-bottom: 10px;
+        }
+        
+        .post-content h6 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .post-content p {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .post-author small {
+            color: #6c757d;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* ============================================
+            ACTIVITY LOG
+        ============================================= */
+        .activity-log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .activity-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgba(10, 36, 99, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-text {
+            margin-bottom: 5px;
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: #adb5bd;
+        }
+        
+        .activity-user {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .activity-action {
+            color: var(--admin-green);
+            font-weight: 600;
+        }
+        
+        /* ============================================
+            RESPONSIVE STYLES
+        ============================================= */
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .admin-content {
+                margin-left: 0;
+            }
+            
+            .mobile-toggle {
+                display: block !important;
+            }
+        }
+        
+        /* ============================================
+            UTILITY CLASSES
+        ============================================= */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #071b4d;
+            border-color: #071b4d;
+        }
+        
+        .btn-danger {
+            background-color: var(--admin-red);
+            border-color: var(--admin-red);
+        }
+        
+        .btn-warning {
+            background-color: var(--admin-orange);
+            border-color: var(--admin-orange);
+        }
+        
+        .btn-success {
+            background-color: var(--admin-green);
+            border-color: var(--admin-green);
+        }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+        
+        .overlay.show {
+            display: block;
+        }
+        
+        .dataTables_filter {
+            margin-bottom: 15px;
+        }
+        
+        .dataTables_filter input {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 8px 12px;
+            width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+        ADMIN HEADER
+    ============================================= -->
+    <header class="admin-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex align-items-center">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a href="index.html" class="brand">
+                        <i class="fas fa-graduation-cap me-2"></i>CampusConnect
+                        <span class="badge bg-danger ms-2">Admin</span>
+                    </a>
+                </div>
+                
+                <div class="admin-info">
+                    <div class="dropdown">
+                        <button class="btn btn-link text-dark dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Admin" class="admin-avatar">
+                            <div class="text-start d-none d-md-block">
+                                <div class="fw-bold">Admin User</div>
+                                <small class="text-muted">System Administrator</small>
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-cog me-2"></i>Admin Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-shield-alt me-2"></i>Security</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="index.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ============================================
+        SIDEBAR OVERLAY (MOBILE)
+    ============================================= -->
+    <div class="overlay" id="sidebarOverlay"></div>
+    
+    <!-- ============================================
+        ADMIN SIDEBAR
+    ============================================= -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-users"></i>
+                        User Management
+                        <span class="badge bg-danger">12</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-newspaper"></i>
+                        Content Moderation
+                        <span class="badge bg-warning">8</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-calendar-check"></i>
+                        Events Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-chart-bar"></i>
+                        Analytics & Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cogs"></i>
+                        System Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-shield-alt"></i>
+                        Security & Permissions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="index.html">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Public Site
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <small>
+                <i class="fas fa-server me-1"></i>
+                System Status: <span class="text-success">Online</span><br>
+                <i class="fas fa-database me-1"></i>
+                Last Backup: Today, 02:00 AM
+            </small>
+        </div>
+    </aside>
+    
+    <!-- ============================================
+        MAIN CONTENT AREA
+    ============================================= -->
+    <main class="admin-content" id="adminContent">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Admin Dashboard</h1>
+            <p>Welcome back, Admin. Here's an overview of your platform.</p>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stats-card-icon stats-card-users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3>40,250</h3>
+                            <p>Total Users</p>
+                            <small class="text-success">+2.5% from last month</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stats-card-icon stats-card-active">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3>8,425</h3>
+                            <p>Active Users (30d)</p>
+                            <small class="text-success">+15% from last month</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stats-card-icon stats-card-pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3>124</h3>
+                            <p>Pending Approvals</p>
+                            <small class="text-warning">Requires attention</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stats-card card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stats-card-icon stats-card-posts">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <h3>2,158</h3>
+                            <p>Posts This Month</p>
+                            <small class="text-success">+12% from last month</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Row -->
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-8">
+                <!-- User Management Card -->
+                <div class="admin-card card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-users text-primary"></i>User Management</h5>
+                        <div>
+                            <button class="btn btn-sm btn-primary me-2">
+                                <i class="fas fa-plus me-1"></i>Add User
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-download me-1"></i>Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Search and Filter -->
+                        <div class="p-3 border-bottom bg-light">
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Search users..." id="userSearch">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="userRoleFilter">
+                                        <option value="">All Roles</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="alumni">Alumni</option>
+                                        <option value="student">Student</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="userStatusFilter">
+                                        <option value="">All Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="suspended">Suspended</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Users Table -->
+                        <div class="table-responsive">
+                            <table class="table admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Joined</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- User 1 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">Michael Chen</div>
+                                                    <small class="text-muted">michael.chen@example.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-alumni">Alumni</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-active">Active</span>
+                                        </td>
+                                        <td>Oct 15, 2020</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-warning" title="Suspend">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- User 2 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">Sarah Johnson</div>
+                                                    <small class="text-muted">sarah.j@example.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-alumni">Alumni</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-active">Active</span>
+                                        </td>
+                                        <td>Mar 22, 2019</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-warning" title="Suspend">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- User 3 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">Jennifer Lee</div>
+                                                    <small class="text-muted">jennifer.lee@example.edu</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-student">Student</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-pending">Pending</span>
+                                        </td>
+                                        <td>Nov 5, 2023</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-success" title="Approve">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-danger" title="Reject">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- User 4 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">David Rodriguez</div>
+                                                    <small class="text-muted">david.r@example.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-alumni">Alumni</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-suspended">Suspended</span>
+                                        </td>
+                                        <td>Jun 10, 2021</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-success" title="Activate">
+                                                    <i class="fas fa-check-circle"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- User 5 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">Robert Kim</div>
+                                                    <small class="text-muted">robert.kim@example.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-alumni">Alumni</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-active">Active</span>
+                                        </td>
+                                        <td>Aug 18, 2022</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-warning" title="Suspend">
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                                <button class="btn btn-icon btn-outline-danger" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- User 6 -->
+                                    <tr>
+                                        <td>
+                                            <div class="user-info">
+                                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="user-avatar">
+                                                <div>
+                                                    <div class="fw-bold">Admin User</div>
+                                                    <small class="text-muted">admin@campusconnect.edu</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role-badge role-admin">Admin</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-active">Active</span>
+                                        </td>
+                                        <td>Jan 1, 2020</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <span class="text-muted small">Current User</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="p-3 border-top">
+                            <nav aria-label="User pagination">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Post Moderation Card -->
+                <div class="admin-card card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-flag text-warning"></i>Post Moderation Queue</h5>
+                        <span class="badge bg-warning">8 items pending</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Post Item 1 -->
+                        <div class="post-item">
+                            <div class="post-header">
+                                <span class="post-type post-type-job">
+                                    <i class="fas fa-briefcase me-1"></i>Job Post
+                                </span>
+                                <small class="text-muted">Reported 2 hours ago</small>
+                            </div>
+                            <div class="post-content">
+                                <h6>Senior Software Engineer at TechStart Inc.</h6>
+                                <p>Looking for senior developers with 10+ years experience in legacy systems. Must be willing to work weekends. Competitive salary offered.</p>
+                            </div>
+                            <div class="post-footer">
+                                <div class="post-author">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Author" class="user-avatar" style="width: 30px; height: 30px;">
+                                    <div>
+                                        <small>Posted by: John Smith</small><br>
+                                        <small class="text-muted">Report reason: Suspicious company details</small>
+                                    </div>
+                                </div>
+                                <div class="post-actions">
+                                    <button class="btn btn-sm btn-success">Approve</button>
+                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                    <button class="btn btn-sm btn-outline-secondary">Review</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Item 2 -->
+                        <div class="post-item">
+                            <div class="post-header">
+                                <span class="post-type post-type-event">
+                                    <i class="fas fa-calendar me-1"></i>Event
+                                </span>
+                                <small class="text-muted">Reported 5 hours ago</small>
+                            </div>
+                            <div class="post-content">
+                                <h6>Free Bitcoin Investment Seminar</h6>
+                                <p>Learn how to make millions with cryptocurrency investments. No experience needed. Guaranteed returns.</p>
+                            </div>
+                            <div class="post-footer">
+                                <div class="post-author">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Author" class="user-avatar" style="width: 30px; height: 30px;">
+                                    <div>
+                                        <small>Posted by: Maria Garcia</small><br>
+                                        <small class="text-muted">Report reason: Potential scam / MLM</small>
+                                    </div>
+                                </div>
+                                <div class="post-actions">
+                                    <button class="btn btn-sm btn-success">Approve</button>
+                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                    <button class="btn btn-sm btn-outline-secondary">Review</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Item 3 -->
+                        <div class="post-item">
+                            <div class="post-header">
+                                <span class="post-type post-type-forum">
+                                    <i class="fas fa-comments me-1"></i>Forum Post
+                                </span>
+                                <small class="text-muted">Reported yesterday</small>
+                            </div>
+                            <div class="post-content">
+                                <h6>Political discussion: University policies</h6>
+                                <p>The university administration is corrupt and needs to be replaced. Students should organize protests immediately.</p>
+                            </div>
+                            <div class="post-footer">
+                                <div class="post-author">
+                                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Author" class="user-avatar" style="width: 30px; height: 30px;">
+                                    <div>
+                                        <small>Posted by: Alex Johnson</small><br>
+                                        <small class="text-muted">Report reason: Inflammatory content</small>
+                                    </div>
+                                </div>
+                                <div class="post-actions">
+                                    <button class="btn btn-sm btn-success">Approve</button>
+                                    <button class="btn btn-sm btn-danger">Reject</button>
+                                    <button class="btn btn-sm btn-outline-secondary">Review</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="col-lg-4">
+                <!-- Recent Activity Card -->
+                <div class="admin-card card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-history text-primary"></i>Recent Activity</h5>
+                        <a href="#" class="text-primary text-decoration-none small">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="activity-log">
+                            <!-- Activity Item 1 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        <span class="activity-user">Jennifer Lee</span> registered as new student
+                                    </div>
+                                    <div class="activity-time">
+                                        10 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Activity Item 2 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-flag"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        Post reported: "Free Bitcoin Seminar" marked for review
+                                    </div>
+                                    <div class="activity-time">
+                                        2 hours ago
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Activity Item 3 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        <span class="activity-user">David Rodriguez</span> account suspended for violations
+                                    </div>
+                                    <div class="activity-time">
+                                        5 hours ago
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Activity Item 4 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        15 user registrations approved by system
+                                    </div>
+                                    <div class="activity-time">
+                                        Today, 8:00 AM
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Activity Item 5 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        8 new job posts submitted for approval
+                                    </div>
+                                    <div class="activity-time">
+                                        Yesterday, 6:30 PM
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Activity Item 6 -->
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">
+                                        Monthly user growth: +425 new users (2.5% increase)
+                                    </div>
+                                    <div class="activity-time">
+                                        Yesterday, 12:00 PM
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Alerts Card -->
+                <div class="admin-card card mb-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-exclamation-triangle text-warning"></i>System Alerts</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Alert 1 -->
+                        <div class="alert alert-warning d-flex align-items-center mb-3">
+                            <i class="fas fa-database fa-2x me-3"></i>
+                            <div>
+                                <h6 class="alert-heading mb-1">Database Backup</h6>
+                                <p class="mb-0 small">Last backup completed 12 hours ago. Next scheduled: 2:00 AM</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Alert 2 -->
+                        <div class="alert alert-info d-flex align-items-center mb-3">
+                            <i class="fas fa-server fa-2x me-3"></i>
+                            <div>
+                                <h6 class="alert-heading mb-1">Server Load</h6>
+                                <p class="mb-0 small">Current load: 65%. Peak usage: 85% at 2:30 PM</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Alert 3 -->
+                        <div class="alert alert-success d-flex align-items-center">
+                            <i class="fas fa-shield-alt fa-2x me-3"></i>
+                            <div>
+                                <h6 class="alert-heading mb-1">Security Status</h6>
+                                <p class="mb-0 small">All systems secure. Last security scan: Today, 3:00 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions Card -->
+                <div class="admin-card card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-bolt text-primary"></i>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
+                                    <i class="fas fa-user-plus fa-2x mb-2"></i>
+                                    <span>Add User</span>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
+                                    <i class="fas fa-file-export fa-2x mb-2"></i>
+                                    <span>Export Data</span>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
+                                    <i class="fas fa-broadcast-tower fa-2x mb-2"></i>
+                                    <span>System Logs</span>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
+                                    <i class="fas fa-cog fa-2x mb-2"></i>
+                                    <span>Settings</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================
+        BOOTSTRAP & CUSTOM JAVASCRIPT
+    ============================================= -->
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for Admin Dashboard -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ============================================
+            // SIDEBAR TOGGLE (MOBILE)
+            // ============================================
+            const mobileToggle = document.getElementById('mobileToggle');
+            const adminSidebar = document.getElementById('adminSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const adminContent = document.getElementById('adminContent');
+            
+            // Toggle sidebar visibility
+            function toggleSidebar() {
+                adminSidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            }
+            
+            mobileToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+            
+            // ============================================
+            // USER MANAGEMENT FUNCTIONALITY
+            // ============================================
+            const userSearch = document.getElementById('userSearch');
+            const userRoleFilter = document.getElementById('userRoleFilter');
+            const userStatusFilter = document.getElementById('userStatusFilter');
+            
+            // User search functionality
+            userSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('.admin-table tbody tr');
+                
+                rows.forEach(row => {
+                    const userName = row.querySelector('.fw-bold').textContent.toLowerCase();
+                    const userEmail = row.querySelector('.text-muted').textContent.toLowerCase();
+                    
+                    if (userName.includes(searchTerm) || userEmail.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            
+            // User role filter
+            userRoleFilter.addEventListener('change', function() {
+                const selectedRole = this.value;
+                filterUsers();
+            });
+            
+            // User status filter
+            userStatusFilter.addEventListener('change', function() {
+                const selectedStatus = this.value;
+                filterUsers();
+            });
+            
+            function filterUsers() {
+                const selectedRole = userRoleFilter.value;
+                const selectedStatus = userStatusFilter.value;
+                const rows = document.querySelectorAll('.admin-table tbody tr');
+                
+                rows.forEach(row => {
+                    const roleBadge = row.querySelector('.role-badge');
+                    const statusBadge = row.querySelector('.status-badge');
+                    
+                    const role = roleBadge ? roleBadge.classList.contains('role-admin') ? 'admin' : 
+                                            roleBadge.classList.contains('role-alumni') ? 'alumni' : 
+                                            roleBadge.classList.contains('role-student') ? 'student' : '' : '';
+                    
+                    const status = statusBadge ? statusBadge.classList.contains('status-active') ? 'active' :
+                                              statusBadge.classList.contains('status-pending') ? 'pending' :
+                                              statusBadge.classList.contains('status-suspended') ? 'suspended' : '' : '';
+                    
+                    const roleMatch = !selectedRole || role === selectedRole;
+                    const statusMatch = !selectedStatus || status === selectedStatus;
+                    
+                    row.style.display = (roleMatch && statusMatch) ? '' : 'none';
+                });
+            }
+            
+            // ============================================
+            // USER ACTION BUTTONS
+            // ============================================
+            // Edit user
+            document.querySelectorAll('.btn-outline-primary .fa-edit').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const userName = this.closest('tr').querySelector('.fw-bold').textContent;
+                    showNotification(`Editing user: ${userName}`, 'info');
+                });
+            });
+            
+            // Suspend/ban user
+            document.querySelectorAll('.btn-outline-warning .fa-ban').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const userName = this.closest('tr').querySelector('.fw-bold').textContent;
+                    const statusBadge = this.closest('tr').querySelector('.status-badge');
+                    
+                    if (statusBadge.classList.contains('status-suspended')) {
+                        statusBadge.className = 'status-badge status-active';
+                        statusBadge.textContent = 'Active';
+                        showNotification(`User ${userName} has been reactivated`, 'success');
+                    } else {
+                        statusBadge.className = 'status-badge status-suspended';
+                        statusBadge.textContent = 'Suspended';
+                        showNotification(`User ${userName} has been suspended`, 'warning');
+                    }
+                });
+            });
+            
+            // Delete user
+            document.querySelectorAll('.btn-outline-danger .fa-trash').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const userName = row.querySelector('.fw-bold').textContent;
+                    
+                    if (confirm(`Are you sure you want to delete user ${userName}? This action cannot be undone.`)) {
+                        row.remove();
+                        showNotification(`User ${userName} has been deleted`, 'danger');
+                        updateUserCount();
+                    }
+                });
+            });
+            
+            // Approve pending user
+            document.querySelectorAll('.btn-outline-success .fa-check').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const userName = row.querySelector('.fw-bold').textContent;
+                    const statusBadge = row.querySelector('.status-badge');
+                    
+                    statusBadge.className = 'status-badge status-active';
+                    statusBadge.textContent = 'Active';
+                    
+                    // Change action buttons
+                    const actionCell = row.querySelector('.action-buttons');
+                    actionCell.innerHTML = `
+                        <div class="action-buttons">
+                            <button class="btn btn-icon btn-outline-primary" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline-warning" title="Suspend">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                            <button class="btn btn-icon btn-outline-danger" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    showNotification(`User ${userName} has been approved`, 'success');
+                    updatePendingCount();
+                    
+                    // Reattach event listeners to new buttons
+                    attachUserActionListeners();
+                });
+            });
+            
+            // Reject pending user
+            document.querySelectorAll('.btn-outline-danger .fa-times').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const userName = row.querySelector('.fw-bold').textContent;
+                    
+                    if (confirm(`Reject registration for ${userName}?`)) {
+                        row.remove();
+                        showNotification(`Registration for ${userName} has been rejected`, 'danger');
+                        updatePendingCount();
+                    }
+                });
+            });
+            
+            // Activate suspended user
+            document.querySelectorAll('.btn-outline-success .fa-check-circle').forEach(icon => {
+                icon.closest('.btn').addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const userName = row.querySelector('.fw-bold').textContent;
+                    const statusBadge = row.querySelector('.status-badge');
+                    
+                    statusBadge.className = 'status-badge status-active';
+                    statusBadge.textContent = 'Active';
+                    
+                    showNotification(`User ${userName} has been activated`, 'success');
+                });
+            });
+            
+            function attachUserActionListeners() {
+                // Reattach all listeners after DOM changes
+                document.querySelectorAll('.btn-outline-primary .fa-edit').forEach(icon => {
+                    icon.closest('.btn').addEventListener('click', function() {
+                        const userName = this.closest('tr').querySelector('.fw-bold').textContent;
+                        showNotification(`Editing user: ${userName}`, 'info');
+                    });
+                });
+                
+                document.querySelectorAll('.btn-outline-warning .fa-ban').forEach(icon => {
+                    icon.closest('.btn').addEventListener('click', function() {
+                        const userName = this.closest('tr').querySelector('.fw-bold').textContent;
+                        const statusBadge = this.closest('tr').querySelector('.status-badge');
+                        
+                        if (statusBadge.classList.contains('status-suspended')) {
+                            statusBadge.className = 'status-badge status-active';
+                            statusBadge.textContent = 'Active';
+                            showNotification(`User ${userName} has been reactivated`, 'success');
+                        } else {
+                            statusBadge.className = 'status-badge status-suspended';
+                            statusBadge.textContent = 'Suspended';
+                            showNotification(`User ${userName} has been suspended`, 'warning');
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.btn-outline-danger .fa-trash').forEach(icon => {
+                    icon.closest('.btn').addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const userName = row.querySelector('.fw-bold').textContent;
+                        
+                        if (confirm(`Are you sure you want to delete user ${userName}? This action cannot be undone.`)) {
+                            row.remove();
+                            showNotification(`User ${userName} has been deleted`, 'danger');
+                            updateUserCount();
+                        }
+                    });
+                });
+            }
+            
+            function updateUserCount() {
+                const userRows = document.querySelectorAll('.admin-table tbody tr').length;
+                document.querySelector('.stats-card-users + .stats-card-content h3').textContent = userRows + 40,230;
+            }
+            
+            function updatePendingCount() {
+                const pendingRows = Array.from(document.querySelectorAll('.admin-table tbody tr')).filter(row => {
+                    const statusBadge = row.querySelector('.status-badge');
+                    return statusBadge && statusBadge.classList.contains('status-pending');
+                }).length;
+                
+                document.querySelector('.stats-card-pending + .stats-card-content h3').textContent = pendingRows + 120;
+                document.querySelector('.sidebar-nav .nav-link:nth-child(2) .badge').textContent = pendingRows + 8;
+            }
+            
+            // ============================================
+            // POST MODERATION FUNCTIONALITY
+            // ============================================
+            // Approve post
+            document.querySelectorAll('.post-actions .btn-success').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postItem = this.closest('.post-item');
+                    const postTitle = postItem.querySelector('h6').textContent;
+                    
+                    postItem.remove();
+                    showNotification(`Post "${postTitle}" has been approved`, 'success');
+                    updateModerationQueue();
+                });
+            });
+            
+            // Reject post
+            document.querySelectorAll('.post-actions .btn-danger').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postItem = this.closest('.post-item');
+                    const postTitle = postItem.querySelector('h6').textContent;
+                    
+                    if (confirm(`Reject post "${postTitle}"? This will remove it from the platform.`)) {
+                        postItem.remove();
+                        showNotification(`Post "${postTitle}" has been rejected and removed`, 'danger');
+                        updateModerationQueue();
+                    }
+                });
+            });
+            
+            // Review post
+            document.querySelectorAll('.post-actions .btn-outline-secondary').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postItem = this.closest('.post-item');
+                    const postTitle = postItem.querySelector('h6').textContent;
+                    
+                    showNotification(`Opening detailed review for "${postTitle}"`, 'info');
+                });
+            });
+            
+            function updateModerationQueue() {
+                const pendingPosts = document.querySelectorAll('.post-item').length;
+                const badge = document.querySelector('.card-header .badge.bg-warning');
+                badge.textContent = `${pendingPosts} items pending`;
+                
+                // Update sidebar badge
+                document.querySelector('.sidebar-nav .nav-link:nth-child(3) .badge').textContent = pendingPosts;
+            }
+            
+            // ============================================
+            // QUICK ACTIONS
+            // ============================================
+            document.querySelectorAll('.quick-actions .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.querySelector('span').textContent;
+                    showNotification(`Opening ${action} panel...`, 'info');
+                });
+            });
+            
+            // Add User button
+            document.querySelector('.btn-primary .fa-plus').closest('.btn').addEventListener('click', function() {
+                showNotification('Opening user creation form...', 'info');
+            });
+            
+            // Export button
+            document.querySelector('.btn-outline-primary .fa-download').closest('.btn').addEventListener('click', function() {
+                showNotification('Preparing user data export...', 'info');
+            });
+            
+            // ============================================
+            // HELPER FUNCTION: SHOW NOTIFICATION
+            // ============================================
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                notification.style.cssText = 'top: 80px; right: 20px; z-index: 1050; max-width: 400px;';
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                // Add to page
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 3000);
+            }
+            
+            // ============================================
+            // DEMO DATA UPDATES
+            // ============================================
+            // Simulate real-time updates
+            setInterval(() => {
+                // Randomly update active users count
+                const activeUsersElement = document.querySelector('.stats-card-active + .stats-card-content h3');
+                const currentActive = parseInt(activeUsersElement.textContent.replace(/,/g, ''));
+                const change = Math.floor(Math.random() * 21) - 10; // -10 to +10
+                const newActive = Math.max(8400, currentActive + change);
+                activeUsersElement.textContent = newActive.toLocaleString();
+                
+                // Update percentage
+                const percentageElement = activeUsersElement.nextElementSibling.nextElementSibling;
+                const newPercentage = change > 0 ? `+${Math.abs(change)/100}%` : `-${Math.abs(change)/100}%`;
+                percentageElement.textContent = `${newPercentage} from last hour`;
+                percentageElement.className = change >= 0 ? 'text-success' : 'text-danger';
+                
+            }, 10000); // Update every 10 seconds
+        });
+    </script>
+</body>
+</html>

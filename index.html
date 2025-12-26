@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusConnect - Connecting Alumni & Students</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
+    <style>
+        :root {
+            --primary-color: #0a2463; /* Navy Blue */
+            --secondary-color: #3e92cc; /* Light Blue */
+            --accent-color: #2ec4b6; /* Teal/Green */
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #071b4d;
+            border-color: #071b4d;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #25a99a;
+            border-color: #25a99a;
+            color: white;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+        
+        .stat-card {
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .alumni-card, .job-card, .event-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .alumni-card:hover, .job-card:hover, .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-card {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        footer {
+            background-color: #1a1a2e;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(10, 36, 99, 0.9), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="fas fa-graduation-cap me-2 text-primary"></i>CampusConnect
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alumni-directory.html">Alumni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-directory.html">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs-internships.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-primary me-2" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">Connecting Alumni & Students for a Better Future</h1>
+                    <p class="lead mb-4">Join our platform to connect with former classmates, find career opportunities, mentor students, and grow your professional network.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="register.html" class="btn btn-accent btn-lg px-4 py-3">
+                            <i class="fas fa-user-graduate me-2"></i>Join as Student
+                        </a>
+                        <a href="register.html" class="btn btn-light btn-lg px-4 py-3">
+                            <i class="fas fa-briefcase me-2"></i>Join as Alumni
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    <div class="card bg-white text-dark p-4 rounded-3 shadow">
+                        <h4 class="mb-3">Quick Stats</h4>
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                <i class="fas fa-users fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">25,000+</h5>
+                                <p class="text-muted mb-0">Alumni Network</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="me-3">
+                                <i class="fas fa-graduation-cap fa-2x text-accent"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">15,000+</h5>
+                                <p class="text-muted mb-0">Active Students</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <i class="fas fa-briefcase fa-2x text-secondary"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">2,500+</h5>
+                                <p class="text-muted mb-0">Job Opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col">
+                    <h2 class="fw-bold">Our Growing Community</h2>
+                    <p class="text-muted">Connecting professionals across the globe</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card text-center p-4 bg-light">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h3 class="fw-bold">25,000+</h3>
+                        <p class="text-muted">Total Alumni</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card text-center p-4 bg-light">
+                        <i class="fas fa-user-graduate fa-3x text-accent mb-3"></i>
+                        <h3 class="fw-bold">15,000+</h3>
+                        <p class="text-muted">Running Students</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card text-center p-4 bg-light">
+                        <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
+                        <h3 class="fw-bold">1,200+</h3>
+                        <p class="text-muted">Job Posts</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-card text-center p-4 bg-light">
+                        <i class="fas fa-globe-americas fa-3x text-accent mb-3"></i>
+                        <h3 class="fw-bold">45+</h3>
+                        <p class="text-muted">Countries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Alumni Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h2 class="fw-bold">Featured Alumni</h2>
+                    <p class="text-muted">Successful alumni who are making a difference</p>
+                </div>
+                <div class="col-auto">
+                    <a href="alumni-directory.html" class="btn btn-primary">View All Alumni</a>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="alumni-card card h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alumni" class="rounded-circle mb-3" width="100" height="100">
+                            <h5 class="card-title">Michael Chen</h5>
+                            <p class="card-text text-muted">Software Engineer</p>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Google</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>California, USA</p>
+                            <p class="card-text"><small class="text-muted">Computer Science, 2015</small></p>
+                            <a href="alumni-profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="alumni-card card h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Alumni" class="rounded-circle mb-3" width="100" height="100">
+                            <h5 class="card-title">Sarah Johnson</h5>
+                            <p class="card-text text-muted">Marketing Director</p>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Microsoft</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>London, UK</p>
+                            <p class="card-text"><small class="text-muted">Business Admin, 2012</small></p>
+                            <a href="alumni-profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="alumni-card card h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Alumni" class="rounded-circle mb-3" width="100" height="100">
+                            <h5 class="card-title">David Rodriguez</h5>
+                            <p class="card-text text-muted">Senior Data Scientist</p>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Amazon</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Seattle, USA</p>
+                            <p class="card-text"><small class="text-muted">Data Science, 2018</small></p>
+                            <a href="alumni-profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="alumni-card card h-100">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Alumni" class="rounded-circle mb-3" width="100" height="100">
+                            <h5 class="card-title">Priya Sharma</h5>
+                            <p class="card-text text-muted">Financial Analyst</p>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Goldman Sachs</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>New York, USA</p>
+                            <p class="card-text"><small class="text-muted">Finance, 2016</small></p>
+                            <a href="alumni-profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Job Posts -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h2 class="fw-bold">Latest Job & Internship Posts</h2>
+                    <p class="text-muted">Opportunities posted by our alumni</p>
+                </div>
+                <div class="col-auto">
+                    <a href="jobs-internships.html" class="btn btn-primary">View All Jobs</a>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="job-card card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="badge bg-primary">Full-time</span>
+                                <span class="text-muted">2 days ago</span>
+                            </div>
+                            <h5 class="card-title">Frontend Developer</h5>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>TechCorp Solutions</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Remote</p>
+                            <p class="card-text"><i class="fas fa-dollar-sign me-2 text-muted"></i>$85,000 - $110,000</p>
+                            <p class="card-text">Looking for a skilled frontend developer with React experience to join our growing team.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Posted by: Michael Chen</span>
+                                <a href="#" class="btn btn-accent">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="job-card card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="badge bg-success">Internship</span>
+                                <span class="text-muted">1 week ago</span>
+                            </div>
+                            <h5 class="card-title">Marketing Intern</h5>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Global Marketing Inc.</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>New York, NY</p>
+                            <p class="card-text"><i class="fas fa-dollar-sign me-2 text-muted"></i>$20/hour</p>
+                            <p class="card-text">Summer internship for marketing students interested in digital marketing campaigns.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Posted by: Sarah Johnson</span>
+                                <a href="#" class="btn btn-accent">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="job-card card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="badge bg-primary">Full-time</span>
+                                <span class="text-muted">3 days ago</span>
+                            </div>
+                            <h5 class="card-title">Data Analyst</h5>
+                            <p class="card-text"><i class="fas fa-building me-2 text-muted"></i>Data Insights LLC</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Chicago, IL</p>
+                            <p class="card-text"><i class="fas fa-dollar-sign me-2 text-muted"></i>$75,000 - $95,000</p>
+                            <p class="card-text">Seeking a data analyst with SQL and Python skills to help drive business decisions.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Posted by: David Rodriguez</span>
+                                <a href="#" class="btn btn-accent">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h2 class="fw-bold">What Our Members Say</h2>
+                    <p class="text-muted">Success stories from our alumni and students</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="testimonial-card card h-100 bg-white p-4">
+                        <div class="card-body">
+                            <p class="card-text mb-4">"CampusConnect helped me find my current job through an alumni referral. The networking opportunities are invaluable!"</p>
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Testimonial" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h6 class="mb-0">Robert Kim</h6>
+                                    <p class="text-muted mb-0">Software Engineer, Class of 2019</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card card h-100 bg-white p-4">
+                        <div class="card-body">
+                            <p class="card-text mb-4">"As a student, I've received incredible mentorship from alumni in my field. They helped me prepare for interviews and land an internship."</p>
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Testimonial" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h6 class="mb-0">Jennifer Lee</h6>
+                                    <p class="text-muted mb-0">Current Student, Computer Science</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card card h-100 bg-white p-4">
+                        <div class="card-body">
+                            <p class="card-text mb-4">"I've hired three interns from my alma mater through this platform. It's a great way to give back and find talented individuals."</p>
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Testimonial" class="rounded-circle me-3" width="60" height="60">
+                                <div>
+                                    <h6 class="mb-0">Maria Garcia</h6>
+                                    <p class="text-muted mb-0">Alumni, Product Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-graduation-cap me-2"></i>CampusConnect
+                    </h3>
+                    <p class="mb-4">Connecting alumni and students for mentorship, career opportunities, and professional networking since 2015.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="alumni-directory.html" class="text-white-50 text-decoration-none">Alumni</a></li>
+                        <li class="mb-2"><a href="student-directory.html" class="text-white-50 text-decoration-none">Students</a></li>
+                        <li class="mb-2"><a href="jobs-internships.html" class="text-white-50 text-decoration-none">Jobs</a></li>
+                        <li class="mb-2"><a href="events.html" class="text-white-50 text-decoration-none">Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Career Center</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Mentorship Program</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Alumni Stories</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Campus Events</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            123 University Ave, Campus City
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2"></i>
+                            (123) 456-7890
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            info@campusconnect.edu
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="bg-white my-5">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 CampusConnect. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

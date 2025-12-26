@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs & Internships - CampusConnect</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0a2463; /* Navy Blue */
+            --secondary-color: #3e92cc; /* Light Blue */
+            --accent-color: #2ec4b6; /* Teal/Green */
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #071b4d;
+            border-color: #071b4d;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #25a99a;
+            border-color: #25a99a;
+            color: white;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+        
+        .job-card, .filter-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .job-type-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .job-type-fulltime {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .job-type-internship {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .job-type-parttime {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: contain;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .alumni-badge {
+            background-color: #fff3e0;
+            color: #ef6c00;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+        
+        .featured-job {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .salary-highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(10, 36, 99, 0.9), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .quick-stats {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #1a1a2e;
+        }
+        
+        .apply-btn-loggedin {
+            background: linear-gradient(135deg, var(--primary-color), #3e92cc);
+            color: white;
+            border: none;
+        }
+        
+        .apply-btn-guest {
+            background: linear-gradient(135deg, #6c757d, #adb5bd);
+            color: white;
+            border: none;
+        }
+        
+        .posted-by-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+        NAVIGATION BAR 
+        (Consistent with other pages)
+    ============================================= -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="fas fa-graduation-cap me-2 text-primary"></i>CampusConnect
+            </a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alumni-directory.html">Alumni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student-directory.html">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="jobs-internships.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-primary me-2" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+        PAGE HEADER / HERO SECTION
+    ============================================= -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">Jobs & Internships</h1>
+                    <p class="lead mb-4">Discover career opportunities posted by alumni and partner companies. Find your perfect role!</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control form-control-lg" placeholder="Search jobs by title, company, or skills...">
+                        <button class="btn btn-primary btn-lg" type="button">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="row">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="quick-stats text-center">
+                                <h3 class="fw-bold mb-0">1,250+</h3>
+                                <p class="mb-0">Active Jobs</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="quick-stats text-center">
+                                <h3 class="fw-bold mb-0">350+</h3>
+                                <p class="mb-0">Internships</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="quick-stats text-center">
+                                <h3 class="fw-bold mb-0">85%</h3>
+                                <p class="mb-0">Posted by Alumni</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Section -->
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    <div class="card bg-white text-dark p-4 rounded-3 shadow">
+                        <h4 class="mb-3">
+                            <i class="fas fa-bullhorn text-primary me-2"></i>Post a Job
+                        </h4>
+                        <p class="mb-3">Are you an alumni looking to hire talented graduates from your alma mater?</p>
+                        <a href="dashboard.html" class="btn btn-accent w-100">
+                            <i class="fas fa-plus-circle me-2"></i>Post a Job Opportunity
+                        </a>
+                        <hr class="my-3">
+                        <p class="small text-muted mb-0">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Free for alumni. Reach thousands of qualified students and recent graduates.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        MAIN CONTENT - JOBS & INTERNSHIPS
+    ============================================= -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- ====================================
+                    SIDEBAR - FILTERS SECTION
+                ===================================== -->
+                <div class="col-lg-3 mb-4">
+                    <!-- Filter Card -->
+                    <div class="filter-card card p-4 mb-4">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-filter me-2 text-primary"></i>Filter Jobs
+                        </h5>
+                        
+                        <!-- Job Type Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Job Type</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="typeFulltime" checked>
+                                <label class="form-check-label" for="typeFulltime">
+                                    <span class="badge job-type-badge job-type-fulltime me-2">FT</span>
+                                    Full-time
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="typeInternship" checked>
+                                <label class="form-check-label" for="typeInternship">
+                                    <span class="badge job-type-badge job-type-internship me-2">INT</span>
+                                    Internship
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="typeParttime">
+                                <label class="form-check-label" for="typeParttime">
+                                    <span class="badge job-type-badge job-type-parttime me-2">PT</span>
+                                    Part-time
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="typeRemote">
+                                <label class="form-check-label" for="typeRemote">
+                                    <i class="fas fa-home me-2 text-muted"></i>
+                                    Remote
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Location Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Location</label>
+                            <select class="form-select" id="locationFilter">
+                                <option value="">All Locations</option>
+                                <option value="remote">Remote/Work from Home</option>
+                                <option value="newyork">New York, NY</option>
+                                <option value="sanfrancisco">San Francisco, CA</option>
+                                <option value="seattle">Seattle, WA</option>
+                                <option value="austin">Austin, TX</option>
+                                <option value="chicago">Chicago, IL</option>
+                                <option value="boston">Boston, MA</option>
+                                <option value="london">London, UK</option>
+                                <option value="toronto">Toronto, Canada</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Department Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Department</label>
+                            <select class="form-select" id="departmentFilter">
+                                <option value="">All Departments</option>
+                                <option value="cs">Computer Science</option>
+                                <option value="business">Business Administration</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="finance">Finance & Accounting</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="design">Design</option>
+                                <option value="science">Science & Research</option>
+                                <option value="healthcare">Healthcare</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Experience Level -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Experience Level</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="expEntry">
+                                <label class="form-check-label" for="expEntry">Entry Level (0-2 years)</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="expMid">
+                                <label class="form-check-label" for="expMid">Mid Level (2-5 years)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="expSenior">
+                                <label class="form-check-label" for="expSenior">Senior Level (5+ years)</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Posted By Alumni Filter -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="postedByAlumni" checked>
+                                <label class="form-check-label" for="postedByAlumni">
+                                    <span class="alumni-badge me-2">ALUMNI</span>
+                                    Posted by Alumni only
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Salary Range (Optional) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Salary Range (annual)</label>
+                            <select class="form-select" id="salaryFilter">
+                                <option value="">Any Salary</option>
+                                <option value="0-50000">$0 - $50,000</option>
+                                <option value="50000-80000">$50,000 - $80,000</option>
+                                <option value="80000-120000">$80,000 - $120,000</option>
+                                <option value="120000+">$120,000+</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" id="applyFiltersBtn">
+                                <i class="fas fa-check-circle me-2"></i>Apply Filters
+                            </button>
+                            <button class="btn btn-outline-secondary" id="resetFiltersBtn">
+                                <i class="fas fa-redo me-2"></i>Reset Filters
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats Card -->
+                    <div class="card p-4">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-chart-line me-2 text-accent"></i>Job Market Insights
+                        </h5>
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-0">Most In-Demand</h6>
+                                <p class="text-muted mb-0">Software Engineering</p>
+                            </div>
+                            <span class="fw-bold text-primary">420 jobs</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-0">Highest Salary</h6>
+                                <p class="text-muted mb-0">Data Science</p>
+                            </div>
+                            <span class="fw-bold salary-highlight">$145k avg</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-0">Remote Jobs</h6>
+                                <p class="text-muted mb-0">Work from anywhere</p>
+                            </div>
+                            <span class="fw-bold">280+</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="fw-bold mb-0">Alumni Network</h6>
+                                <p class="text-muted mb-0">Jobs from alumni</p>
+                            </div>
+                            <span class="fw-bold">85%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ====================================
+                    MAIN CONTENT - JOB LISTINGS
+                ===================================== -->
+                <div class="col-lg-9">
+                    <!-- Results Header -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+                        <div class="mb-3 mb-md-0">
+                            <h4 class="fw-bold mb-1">Available Opportunities</h4>
+                            <p class="text-muted mb-0">Showing <span class="fw-bold">9</span> of <span class="fw-bold">1,250+</span> jobs</p>
+                        </div>
+                        
+                        <!-- Sort Options -->
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <div class="d-flex align-items-center">
+                                <span class="me-2">Sort by:</span>
+                                <select class="form-select form-select-sm w-auto" id="sortJobs">
+                                    <option value="recent">Most Recent</option>
+                                    <option value="salary">Highest Salary</option>
+                                    <option value="deadline">Application Deadline</option>
+                                    <option value="alumni">Posted by Alumni</option>
+                                </select>
+                            </div>
+                            
+                            <!-- View Toggle -->
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="jobView" id="gridView" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary btn-sm" for="gridView">
+                                    <i class="fas fa-th-large"></i>
+                                </label>
+                                <input type="radio" class="btn-check" name="jobView" id="listView" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="listView">
+                                    <i class="fas fa-list"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Job Banner -->
+                    <div class="alert alert-info d-flex align-items-center mb-4">
+                        <i class="fas fa-star me-3 fa-2x"></i>
+                        <div>
+                            <h6 class="alert-heading fw-bold mb-1">Featured Job Alert!</h6>
+                            <p class="mb-0">Google is hiring 50+ new graduates through our alumni network. <a href="#featuredJob" class="alert-link fw-bold">View details below</a>.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Job Cards Grid -->
+                    <div class="row g-4" id="jobListings">
+                        <!-- Featured Job Card 1 -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="job-card card h-100 featured-job">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="company-logo me-3">
+                                            <div>
+                                                <h5 class="card-title fw-bold mb-1">Software Engineer, New Grad</h5>
+                                                <p class="card-text text-muted mb-0">Google</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Mountain View, CA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$125,000 - $155,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 2 days ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Google is looking for new graduates with strong computer science fundamentals. Join one of the world's most innovative technology companies.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Java</span>
+                                            <span class="badge bg-light text-dark">Python</span>
+                                            <span class="badge bg-light text-dark">C++</span>
+                                            <span class="badge bg-light text-dark">Algorithms</span>
+                                            <span class="badge bg-light text-dark">Data Structures</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>Michael Chen</strong></p>
+                                                <p class="small text-muted mb-0">Alumni, Class of 2015</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Deadline -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-check me-1"></i>
+                                            Deadline: Dec 15, 2023
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-users me-1"></i>
+                                            42 applicants
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 2 -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="company-logo me-3">
+                                            <div>
+                                                <h5 class="card-title fw-bold mb-1">Product Manager Intern</h5>
+                                                <p class="card-text text-muted mb-0">Microsoft</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-internship">Internship</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Redmond, WA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$7,500/month</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 1 week ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Summer 2024 internship for aspiring product managers. Work on cutting-edge projects with the Office 365 team.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Product Strategy</span>
+                                            <span class="badge bg-light text-dark">Market Research</span>
+                                            <span class="badge bg-light text-dark">UX Principles</span>
+                                            <span class="badge bg-light text-dark">Analytics</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>Sarah Johnson</strong></p>
+                                                <p class="small text-muted mb-0">Alumni, Class of 2012</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Deadline -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-check me-1"></i>
+                                            Deadline: Jan 15, 2024
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-users me-1"></i>
+                                            85 applicants
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 3 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Data Analyst</h5>
+                                            <p class="card-text text-muted mb-0">Amazon</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Seattle, WA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$95,000 - $120,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 3 days ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Analyze customer data to drive business decisions for Amazon's retail division. SQL and Python experience required.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">SQL</span>
+                                            <span class="badge bg-light text-dark">Python</span>
+                                            <span class="badge bg-light text-dark">Tableau</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David Rodriguez" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>David Rodriguez</strong></p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-guest">
+                                            <i class="fas fa-sign-in-alt me-2"></i>Login to Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 4 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Marketing Associate</h5>
+                                            <p class="card-text text-muted mb-0">Goldman Sachs</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>New York, NY</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$85,000 - $105,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 5 days ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Join the marketing team at one of the world's leading investment banks. Develop campaigns for financial products.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Digital Marketing</span>
+                                            <span class="badge bg-light text-dark">Analytics</span>
+                                            <span class="badge bg-light text-dark">Content Creation</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Sharma" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>Priya Sharma</strong></p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 5 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">UX Design Intern</h5>
+                                            <p class="card-text text-muted mb-0">Apple</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-internship">Internship</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Cupertino, CA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$8,000/month</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 2 weeks ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Summer internship working on Apple's user experience design team. Work on iOS or macOS interfaces.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Figma</span>
+                                            <span class="badge bg-light text-dark">User Research</span>
+                                            <span class="badge bg-light text-dark">Prototyping</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/women/29.jpg" alt="Lisa Wong" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>Lisa Wong</strong></p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-guest">
+                                            <i class="fas fa-sign-in-alt me-2"></i>Login to Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 6 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Financial Analyst</h5>
+                                            <p class="card-text text-muted mb-0">JPMorgan Chase</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <!-- No alumni badge - partner company -->
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Chicago, IL</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$90,000 - $115,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 1 week ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Entry-level financial analyst position in investment banking division. CFA candidates preferred.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Financial Modeling</span>
+                                            <span class="badge bg-light text-dark">Excel</span>
+                                            <span class="badge bg-light text-dark">Accounting</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action (Partner Company) -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="small text-muted mb-0">Partner Company</p>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 7 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Backend Developer</h5>
+                                            <p class="card-text text-muted mb-0">Netflix</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Los Gatos, CA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$140,000 - $180,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 4 days ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Build scalable backend services for Netflix's streaming platform. Microservices architecture experience required.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Java</span>
+                                            <span class="badge bg-light text-dark">Spring Boot</span>
+                                            <span class="badge bg-light text-dark">AWS</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Robert Kim" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>Robert Kim</strong></p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 8 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Remote Software Engineer</h5>
+                                            <p class="card-text text-muted mb-0">GitHub</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-fulltime">Full-time</span>
+                                            <span class="badge bg-info text-white">REMOTE</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-home text-muted me-2"></i>
+                                                <span>Remote (Global)</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$130,000 - $160,000</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 6 days ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Fully remote position. Contribute to GitHub's core platform. Open source experience is a plus.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Ruby on Rails</span>
+                                            <span class="badge bg-light text-dark">JavaScript</span>
+                                            <span class="badge bg-light text-dark">Git</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="small text-muted mb-0">Partner Company</p>
+                                        </div>
+                                        <button class="btn apply-btn-guest">
+                                            <i class="fas fa-sign-in-alt me-2"></i>Login to Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Card 9 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="job-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Job Header -->
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Research Intern</h5>
+                                            <p class="card-text text-muted mb-0">MIT Media Lab</p>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge job-type-badge job-type-internship">Internship</span>
+                                            <span class="alumni-badge d-block mt-1">ALUMNI</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Job Details -->
+                                    <div class="mb-4">
+                                        <div class="d-flex flex-wrap gap-3 mb-3">
+                                            <div>
+                                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                                <span>Cambridge, MA</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-money-bill-wave text-muted me-2"></i>
+                                                <span class="salary-highlight">$6,500/month</span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-clock text-muted me-2"></i>
+                                                <span>Posted 3 weeks ago</span>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">Summer research internship working on cutting-edge AI projects. Ideal for graduate students.</p>
+                                    </div>
+                                    
+                                    <!-- Skills Required -->
+                                    <div class="mb-3">
+                                        <p class="small fw-bold mb-2">Skills Required:</p>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            <span class="badge bg-light text-dark">Machine Learning</span>
+                                            <span class="badge bg-light text-dark">Python</span>
+                                            <span class="badge bg-light text-dark">Research</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Posted By & Action -->
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="James Wilson" class="posted-by-avatar me-2">
+                                            <div>
+                                                <p class="small mb-0">Posted by <strong>James Wilson</strong></p>
+                                            </div>
+                                        </div>
+                                        <button class="btn apply-btn-loggedin">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ====================================
+                        PAGINATION
+                    ===================================== -->
+                    <nav class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="card bg-light border-0 mt-5">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title fw-bold mb-2">Get Job Alerts</h5>
+                            <p class="card-text text-muted mb-4">Sign up to receive notifications when new jobs matching your interests are posted.</p>
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Your email address">
+                                        <button class="btn btn-primary" type="button">Subscribe</button>
+                                    </div>
+                                    <p class="small text-muted mt-2 mb-0">We'll never share your email. Unsubscribe at any time.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        FOOTER 
+        (Consistent with other pages)
+    ============================================= -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-graduation-cap me-2"></i>CampusConnect
+                    </h3>
+                    <p class="mb-4">Connecting alumni and students for mentorship, career opportunities, and professional networking since 2015.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="index.html" class="text-white-50 text-decoration-none">Home</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="alumni-directory.html" class="text-white-50 text-decoration-none">Alumni</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="student-directory.html" class="text-white-50 text-decoration-none">Students</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="jobs-internships.html" class="text-white-50 text-decoration-none">Jobs</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="events.html" class="text-white-50 text-decoration-none">Events</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Career Resources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Resume Builder</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Interview Prep</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Career Counseling</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Salary Guides</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Alumni Mentors</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            123 University Ave, Campus City
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2"></i>
+                            (123) 456-7890
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            careers@campusconnect.edu
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <hr class="bg-white my-5">
+            
+            <!-- Copyright & Legal -->
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 CampusConnect. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+        BOOTSTRAP & CUSTOM JAVASCRIPT
+    ============================================= -->
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for Jobs Page -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ============================================
+            // FILTER FUNCTIONALITY
+            // ============================================
+            const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+            const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+            const locationFilter = document.getElementById('locationFilter');
+            const departmentFilter = document.getElementById('departmentFilter');
+            const salaryFilter = document.getElementById('salaryFilter');
+            const postedByAlumni = document.getElementById('postedByAlumni');
+            const jobTypeCheckboxes = document.querySelectorAll('input[type="checkbox"][id^="type"]');
+            const experienceCheckboxes = document.querySelectorAll('input[type="checkbox"][id^="exp"]');
+            
+            // Apply Filters Button Click
+            applyFiltersBtn.addEventListener('click', function() {
+                const selectedLocation = locationFilter.value;
+                const selectedDepartment = departmentFilter.value;
+                const selectedSalary = salaryFilter.value;
+                const alumniOnly = postedByAlumni.checked;
+                
+                const selectedJobTypes = Array.from(jobTypeCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.id.replace('type', ''));
+                
+                const selectedExperience = Array.from(experienceCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.id.replace('exp', ''));
+                
+                // In a real application, this would filter job listings
+                // For this demo, show filter summary
+                const filterSummary = `
+                    Applied Filters:
+                    - Location: ${selectedLocation || 'All'}
+                    - Department: ${selectedDepartment || 'All'}
+                    - Salary: ${selectedSalary || 'Any'}
+                    - Alumni Only: ${alumniOnly ? 'Yes' : 'No'}
+                    - Job Types: ${selectedJobTypes.length > 0 ? selectedJobTypes.join(', ') : 'All'}
+                    - Experience: ${selectedExperience.length > 0 ? selectedExperience.join(', ') : 'All'}
+                `;
+                
+                showNotification(filterSummary, 'info');
+                
+                // Visual feedback
+                this.innerHTML = '<i class="fas fa-check-circle me-2"></i>Filters Applied';
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check-circle me-2"></i>Apply Filters';
+                    this.classList.remove('btn-success');
+                    this.classList.add('btn-primary');
+                }, 2000);
+            });
+            
+            // Reset Filters Button Click
+            resetFiltersBtn.addEventListener('click', function() {
+                locationFilter.value = '';
+                departmentFilter.value = '';
+                salaryFilter.value = '';
+                postedByAlumni.checked = true;
+                
+                jobTypeCheckboxes.forEach(cb => {
+                    if (cb.id === 'typeFulltime' || cb.id === 'typeInternship') {
+                        cb.checked = true;
+                    } else {
+                        cb.checked = false;
+                    }
+                });
+                
+                experienceCheckboxes.forEach(cb => cb.checked = false);
+                
+                showNotification('All filters have been reset to default values.', 'info');
+                
+                // Visual feedback
+                this.innerHTML = '<i class="fas fa-redo me-2"></i>Filters Reset';
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('btn-outline-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-redo me-2"></i>Reset Filters';
+                    this.classList.remove('btn-outline-success');
+                    this.classList.add('btn-outline-secondary');
+                }, 2000);
+            });
+            
+            // ============================================
+            // SORT FUNCTIONALITY
+            // ============================================
+            const sortSelect = document.getElementById('sortJobs');
+            sortSelect.addEventListener('change', function() {
+                const sortValue = this.value;
+                let sortMessage = '';
+                
+                switch(sortValue) {
+                    case 'recent':
+                        sortMessage = 'Jobs sorted by: Most Recent';
+                        break;
+                    case 'salary':
+                        sortMessage = 'Jobs sorted by: Highest Salary';
+                        break;
+                    case 'deadline':
+                        sortMessage = 'Jobs sorted by: Application Deadline';
+                        break;
+                    case 'alumni':
+                        sortMessage = 'Jobs sorted by: Posted by Alumni';
+                        break;
+                }
+                
+                showNotification(sortMessage, 'info');
+            });
+            
+            // ============================================
+            // VIEW MODE TOGGLE
+            // ============================================
+            const gridViewRadio = document.getElementById('gridView');
+            const listViewRadio = document.getElementById('listView');
+            const jobListings = document.getElementById('jobListings');
+            
+            gridViewRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    jobListings.classList.remove('row-cols-1');
+                    jobListings.classList.add('row-cols-1', 'row-cols-md-2', 'row-cols-lg-3');
+                }
+            });
+            
+            listViewRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    jobListings.classList.remove('row-cols-1', 'row-cols-md-2', 'row-cols-lg-3');
+                    jobListings.classList.add('row-cols-1');
+                }
+            });
+            
+            // ============================================
+            // APPLY BUTTON FUNCTIONALITY
+            // ============================================
+            document.querySelectorAll('.apply-btn-loggedin').forEach(button => {
+                button.addEventListener('click', function() {
+                    const jobTitle = this.closest('.card-body').querySelector('.card-title').textContent;
+                    const company = this.closest('.card-body').querySelector('.card-text.text-muted').textContent;
+                    
+                    // Toggle application state
+                    if (this.innerHTML.includes('Apply Now')) {
+                        this.innerHTML = '<i class="fas fa-check me-2"></i>Applied';
+                        this.classList.remove('apply-btn-loggedin');
+                        this.classList.add('btn-success');
+                        
+                        showNotification(`Application submitted for ${jobTitle} at ${company}!`, 'success');
+                    } else {
+                        this.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Apply Now';
+                        this.classList.remove('btn-success');
+                        this.classList.add('apply-btn-loggedin');
+                        
+                        showNotification(`Application withdrawn for ${jobTitle}.`, 'info');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.apply-btn-guest').forEach(button => {
+                button.addEventListener('click', function() {
+                    const jobTitle = this.closest('.card-body').querySelector('.card-title').textContent;
+                    
+                    showNotification(`Please login or register to apply for "${jobTitle}". Redirecting to login...`, 'warning');
+                    
+                    // Redirect to login page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                });
+            });
+            
+            // ============================================
+            // HELPER FUNCTION: SHOW NOTIFICATION
+            // ============================================
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; max-width: 400px;';
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                // Add to page
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 4 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 4000);
+            }
+            
+            // ============================================
+            // SEARCH FUNCTIONALITY
+            // ============================================
+            const searchInput = document.querySelector('input[type="text"]');
+            const searchButton = document.querySelector('.btn-primary.btn-lg');
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.trim();
+                
+                if (searchTerm) {
+                    showNotification(`Searching jobs for "${searchTerm}"...`, 'info');
+                    
+                    // Simulate search delay
+                    setTimeout(() => {
+                        const randomCount = Math.floor(Math.random() * 50) + 10;
+                        showNotification(`Found ${randomCount} jobs matching "${searchTerm}"`, 'success');
+                    }, 800);
+                } else {
+                    showNotification('Please enter a job title, company, or skill to search.', 'warning');
+                }
+            }
+            
+            // ============================================
+            // NEWSLETTER SUBSCRIPTION
+            // ============================================
+            const subscribeBtn = document.querySelector('.btn-primary[type="button"]');
+            const emailInput = document.querySelector('input[type="email"]');
+            
+            if (subscribeBtn && emailInput) {
+                subscribeBtn.addEventListener('click', function() {
+                    const email = emailInput.value.trim();
+                    
+                    if (email && validateEmail(email)) {
+                        showNotification(`Thank you! Job alerts will be sent to ${email}.`, 'success');
+                        emailInput.value = '';
+                    } else {
+                        showNotification('Please enter a valid email address.', 'warning');
+                    }
+                });
+            }
+            
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+        });
+    </script>
+</body>
+</html>

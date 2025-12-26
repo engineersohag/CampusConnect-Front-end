@@ -1,0 +1,1291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory - CampusConnect</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0a2463; /* Navy Blue */
+            --secondary-color: #3e92cc; /* Light Blue */
+            --accent-color: #2ec4b6; /* Teal/Green */
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #071b4d;
+            border-color: #071b4d;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #25a99a;
+            border-color: #25a99a;
+            color: white;
+        }
+        
+        .btn-outline-accent {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .btn-outline-accent:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+        
+        .student-card, .filter-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .interest-badge {
+            background-color: #e9f7fb;
+            color: #0a2463;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 3px;
+        }
+        
+        footer {
+            background-color: #1a1a2e;
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(10, 36, 99, 0.9), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stats-card {
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+        NAVIGATION BAR 
+        (Consistent with other pages)
+    ============================================= -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="fas fa-graduation-cap me-2 text-primary"></i>CampusConnect
+            </a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alumni-directory.html">Alumni</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="student-directory.html">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobs-internships.html">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-primary me-2" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+        PAGE HEADER / HERO SECTION
+    ============================================= -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-5 fw-bold mb-3">Student Directory</h1>
+                    <p class="lead mb-4">Connect with current students across departments and semesters</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="input-group w-75">
+                            <input type="text" class="form-control form-control-lg" placeholder="Search students by name, department, or interest...">
+                            <button class="btn btn-primary btn-lg" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                            <div class="text-center">
+                                <h3 class="fw-bold mb-0">15,000+</h3>
+                                <p class="mb-0">Active Students</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                            <div class="text-center">
+                                <h3 class="fw-bold mb-0">12+</h3>
+                                <p class="mb-0">Departments</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <h3 class="fw-bold mb-0">45%</h3>
+                                <p class="mb-0">Seeking Internships</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        MAIN CONTENT - STUDENT DIRECTORY
+    ============================================= -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- ====================================
+                    SIDEBAR - FILTERS SECTION
+                ===================================== -->
+                <div class="col-lg-3 mb-4">
+                    <!-- Filter Card -->
+                    <div class="filter-card card p-4 mb-4">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-filter me-2 text-primary"></i>Filters
+                        </h5>
+                        
+                        <!-- Department Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Department</label>
+                            <select class="form-select" id="departmentFilter">
+                                <option value="">All Departments</option>
+                                <option value="cs">Computer Science</option>
+                                <option value="business">Business Administration</option>
+                                <option value="ee">Electrical Engineering</option>
+                                <option value="me">Mechanical Engineering</option>
+                                <option value="civil">Civil Engineering</option>
+                                <option value="bio">Biology</option>
+                                <option value="chem">Chemistry</option>
+                                <option value="physics">Physics</option>
+                                <option value="math">Mathematics</option>
+                                <option value="economics">Economics</option>
+                                <option value="psychology">Psychology</option>
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Semester Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Semester</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="semester1">
+                                        <label class="form-check-label" for="semester1">1st-2nd</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="semester2">
+                                        <label class="form-check-label" for="semester2">3rd-4th</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="semester3">
+                                        <label class="form-check-label" for="semester3">5th-6th</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="semester4">
+                                        <label class="form-check-label" for="semester4">7th-8th</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Graduation Year Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Graduation Year</label>
+                            <select class="form-select" id="graduationYearFilter">
+                                <option value="">All Years</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Interest/Skills Filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Interests</label>
+                            <select class="form-select" id="interestsFilter">
+                                <option value="">All Interests</option>
+                                <option value="programming">Programming</option>
+                                <option value="research">Research</option>
+                                <option value="entrepreneurship">Entrepreneurship</option>
+                                <option value="leadership">Leadership</option>
+                                <option value="design">Design</option>
+                                <option value="data-science">Data Science</option>
+                                <option value="ai-ml">AI/ML</option>
+                                <option value="cybersecurity">Cybersecurity</option>
+                                <option value="sustainability">Sustainability</option>
+                                <option value="volunteering">Volunteering</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" id="applyFilters">
+                                <i class="fas fa-check-circle me-2"></i>Apply Filters
+                            </button>
+                            <button class="btn btn-outline-secondary" id="resetFilters">
+                                <i class="fas fa-redo me-2"></i>Reset Filters
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats Card -->
+                    <div class="card p-4">
+                        <h5 class="fw-bold mb-3">
+                            <i class="fas fa-chart-bar me-2 text-accent"></i>Student Stats
+                        </h5>
+                        <div class="stats-card p-3 mb-3 bg-light">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Computer Science</h6>
+                                    <p class="text-muted mb-0">Most Popular</p>
+                                </div>
+                                <span class="fw-bold">3,200</span>
+                            </div>
+                        </div>
+                        <div class="stats-card p-3 mb-3 bg-light">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Seeking Internships</h6>
+                                    <p class="text-muted mb-0">Currently Active</p>
+                                </div>
+                                <span class="fw-bold">6,750</span>
+                            </div>
+                        </div>
+                        <div class="stats-card p-3 bg-light">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="fw-bold mb-0">Average GPA</h6>
+                                    <p class="text-muted mb-0">Across All Students</p>
+                                </div>
+                                <span class="fw-bold">3.45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ====================================
+                    MAIN CONTENT - STUDENT LISTINGS
+                ===================================== -->
+                <div class="col-lg-9">
+                    <!-- Results Header -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+                        <div class="mb-3 mb-md-0">
+                            <h4 class="fw-bold mb-1">Student Profiles</h4>
+                            <p class="text-muted mb-0">Showing <span class="fw-bold">12</span> of <span class="fw-bold">15,000+</span> students</p>
+                        </div>
+                        
+                        <!-- Sort and View Options -->
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <div class="d-flex align-items-center me-3">
+                                <span class="me-2">Sort by:</span>
+                                <select class="form-select form-select-sm w-auto">
+                                    <option value="recent">Most Recent</option>
+                                    <option value="name">Name (A-Z)</option>
+                                    <option value="semester">Semester</option>
+                                    <option value="department">Department</option>
+                                </select>
+                            </div>
+                            
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="viewMode" id="gridView" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary btn-sm" for="gridView">
+                                    <i class="fas fa-th-large"></i>
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="viewMode" id="listView" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm" for="listView">
+                                    <i class="fas fa-list"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Student Cards Grid -->
+                    <div class="row g-4" id="studentGrid">
+                        <!-- Student Card 1 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Jennifer Lee" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Jennifer Lee</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Computer Science
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>7th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.8/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2024
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Machine Learning</span>
+                                            <span class="interest-badge">Web Development</span>
+                                            <span class="interest-badge">Research</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active today
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 2 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Alex Johnson" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Alex Johnson</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Business Administration
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>5th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.6/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2025
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Entrepreneurship</span>
+                                            <span class="interest-badge">Marketing</span>
+                                            <span class="interest-badge">Finance</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active now
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 3 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Maya Patel" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Maya Patel</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Electrical Engineering
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>6th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.9/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2024
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Renewable Energy</span>
+                                            <span class="interest-badge">Robotics</span>
+                                            <span class="interest-badge">Circuit Design</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-warning me-1"></i>Active yesterday
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 4 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="David Kim" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">David Kim</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Mechanical Engineering
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>4th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.5/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2026
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">3D Printing</span>
+                                            <span class="interest-badge">Automotive Design</span>
+                                            <span class="interest-badge">CAD/CAM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active today
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 5 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Sophia Rodriguez" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Sophia Rodriguez</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Biology
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>8th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.7/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2024
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Medical Research</span>
+                                            <span class="interest-badge">Genetics</span>
+                                            <span class="interest-badge">Biotechnology</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active now
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 6 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/29.jpg" alt="Ryan Chen" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Ryan Chen</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Computer Science
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>3rd Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.9/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2027
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">AI/ML</span>
+                                            <span class="interest-badge">Cybersecurity</span>
+                                            <span class="interest-badge">App Development</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active today
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 7 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/35.jpg" alt="Emma Wilson" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Emma Wilson</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Economics
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>5th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.6/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2025
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Data Analysis</span>
+                                            <span class="interest-badge">Public Policy</span>
+                                            <span class="interest-badge">Sustainability</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-danger me-1"></i>Last seen 3 days ago
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 8 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Marcus Brown" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Marcus Brown</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Civil Engineering
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>7th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.4/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2024
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Urban Planning</span>
+                                            <span class="interest-badge">Sustainability</span>
+                                            <span class="interest-badge">Construction Tech</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-success me-1"></i>Active today
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student Card 9 -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="student-card card h-100">
+                                <div class="card-body p-4">
+                                    <!-- Student Header -->
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="Chloe Taylor" class="rounded-circle me-3" width="70" height="70">
+                                        <div>
+                                            <h5 class="card-title fw-bold mb-1">Chloe Taylor</h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <i class="fas fa-graduation-cap me-1"></i>Psychology
+                                            </p>
+                                            <p class="card-text text-muted mb-0">
+                                                <i class="fas fa-calendar-alt me-1"></i>6th Semester
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Student Details -->
+                                    <div class="mb-3">
+                                        <p class="mb-2">
+                                            <i class="fas fa-university me-2 text-muted"></i>
+                                            <span class="fw-bold">GPA:</span> 3.8/4.0
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar me-2 text-muted"></i>
+                                            <span class="fw-bold">Graduation:</span> 2025
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Interests Badges -->
+                                    <div class="mb-4">
+                                        <p class="small fw-bold mb-2">Interests:</p>
+                                        <div class="d-flex flex-wrap">
+                                            <span class="interest-badge">Clinical Psychology</span>
+                                            <span class="interest-badge">Research</span>
+                                            <span class="interest-badge">Mental Health</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-accent btn-sm">
+                                            <i class="fas fa-user-plus me-1"></i>Connect
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-envelope me-1"></i>Message
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Online Status -->
+                                <div class="card-footer bg-transparent border-top-0 pt-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">
+                                            <i class="fas fa-circle text-warning me-1"></i>Active yesterday
+                                        </small>
+                                        <a href="#" class="text-decoration-none small">View Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ====================================
+                        PAGINATION
+                    ===================================== -->
+                    <nav class="mt-5">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+        FOOTER 
+        (Consistent with other pages)
+    ============================================= -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-graduation-cap me-2"></i>CampusConnect
+                    </h3>
+                    <p class="mb-4">Connecting alumni and students for mentorship, career opportunities, and professional networking since 2015.</p>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white me-3">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-white">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="index.html" class="text-white-50 text-decoration-none">Home</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="alumni-directory.html" class="text-white-50 text-decoration-none">Alumni</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="student-directory.html" class="text-white-50 text-decoration-none">Students</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="jobs-internships.html" class="text-white-50 text-decoration-none">Jobs</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="events.html" class="text-white-50 text-decoration-none">Events</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Career Center</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Mentorship Program</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Alumni Stories</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">Campus Events</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-white-50 text-decoration-none">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            123 University Ave, Campus City
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2"></i>
+                            (123) 456-7890
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-envelope me-2"></i>
+                            info@campusconnect.edu
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <hr class="bg-white my-5">
+            
+            <!-- Copyright & Legal -->
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 CampusConnect. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+        BOOTSTRAP & CUSTOM JAVASCRIPT
+    ============================================= -->
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for Student Directory -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ============================================
+            // FILTER FUNCTIONALITY
+            // ============================================
+            const applyFiltersBtn = document.getElementById('applyFilters');
+            const resetFiltersBtn = document.getElementById('resetFilters');
+            const departmentFilter = document.getElementById('departmentFilter');
+            const graduationYearFilter = document.getElementById('graduationYearFilter');
+            const interestsFilter = document.getElementById('interestsFilter');
+            const semesterCheckboxes = document.querySelectorAll('input[type="checkbox"][id^="semester"]');
+            
+            // Apply Filters Button Click
+            applyFiltersBtn.addEventListener('click', function() {
+                const selectedDepartment = departmentFilter.value;
+                const selectedYear = graduationYearFilter.value;
+                const selectedInterest = interestsFilter.value;
+                const selectedSemesters = Array.from(semesterCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.id.replace('semester', ''));
+                
+                // In a real application, this would filter the student data
+                // For this demo, we'll just show an alert
+                alert(`Filters applied:\n- Department: ${selectedDepartment || 'All'}\n- Graduation Year: ${selectedYear || 'All'}\n- Interest: ${selectedInterest || 'All'}\n- Semesters: ${selectedSemesters.length > 0 ? selectedSemesters.join(', ') : 'All'}`);
+                
+                // Add visual feedback
+                this.innerHTML = '<i class="fas fa-check-circle me-2"></i>Filters Applied';
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-success');
+                
+                // Reset button state after 2 seconds
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check-circle me-2"></i>Apply Filters';
+                    this.classList.remove('btn-success');
+                    this.classList.add('btn-primary');
+                }, 2000);
+            });
+            
+            // Reset Filters Button Click
+            resetFiltersBtn.addEventListener('click', function() {
+                departmentFilter.value = '';
+                graduationYearFilter.value = '';
+                interestsFilter.value = '';
+                semesterCheckboxes.forEach(cb => cb.checked = false);
+                
+                alert('All filters have been reset.');
+                
+                // Add visual feedback
+                this.innerHTML = '<i class="fas fa-redo me-2"></i>Filters Reset';
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('btn-outline-success');
+                
+                // Reset button state after 2 seconds
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-redo me-2"></i>Reset Filters';
+                    this.classList.remove('btn-outline-success');
+                    this.classList.add('btn-outline-secondary');
+                }, 2000);
+            });
+            
+            // ============================================
+            // VIEW MODE TOGGLE
+            // ============================================
+            const gridViewRadio = document.getElementById('gridView');
+            const listViewRadio = document.getElementById('listView');
+            const studentGrid = document.getElementById('studentGrid');
+            
+            gridViewRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    studentGrid.classList.remove('row-cols-1');
+                    studentGrid.classList.add('row-cols-1', 'row-cols-md-2', 'row-cols-lg-3');
+                }
+            });
+            
+            listViewRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    studentGrid.classList.remove('row-cols-1', 'row-cols-md-2', 'row-cols-lg-3');
+                    studentGrid.classList.add('row-cols-1');
+                    
+                    // Change card layout for list view
+                    document.querySelectorAll('.student-card').forEach(card => {
+                        card.classList.add('list-view-card');
+                    });
+                }
+            });
+            
+            // ============================================
+            // CONNECT BUTTON FUNCTIONALITY
+            // ============================================
+            document.querySelectorAll('.btn-accent').forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentName = this.closest('.card-body').querySelector('.card-title').textContent;
+                    
+                    // Toggle connection state
+                    if (this.innerHTML.includes('Connect')) {
+                        this.innerHTML = '<i class="fas fa-check me-1"></i>Connected';
+                        this.classList.remove('btn-accent');
+                        this.classList.add('btn-success');
+                        
+                        // Show success message
+                        showNotification(`Connection request sent to ${studentName}!`, 'success');
+                    } else {
+                        this.innerHTML = '<i class="fas fa-user-plus me-1"></i>Connect';
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-accent');
+                        
+                        // Show info message
+                        showNotification(`Disconnected from ${studentName}.`, 'info');
+                    }
+                });
+            });
+            
+            // ============================================
+            // MESSAGE BUTTON FUNCTIONALITY
+            // ============================================
+            document.querySelectorAll('.btn-outline-primary').forEach(button => {
+                if (button.innerHTML.includes('Message')) {
+                    button.addEventListener('click', function() {
+                        const studentName = this.closest('.card-body').querySelector('.card-title').textContent;
+                        
+                        // Redirect to messages page (in a real app)
+                        // For demo, show a message
+                        showNotification(`Opening message thread with ${studentName}...`, 'info');
+                        
+                        // In a real app, this would redirect to messaging page
+                        // window.location.href = `messages.html?user=${encodeURIComponent(studentName)}`;
+                    });
+                }
+            });
+            
+            // ============================================
+            // HELPER FUNCTION: SHOW NOTIFICATION
+            // ============================================
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; max-width: 350px;';
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                // Add to page
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 3000);
+            }
+            
+            // ============================================
+            // SEARCH FUNCTIONALITY
+            // ============================================
+            const searchInput = document.querySelector('input[type="text"]');
+            const searchButton = document.querySelector('button[type="button"]');
+            
+            searchButton.addEventListener('click', function() {
+                const searchTerm = searchInput.value.trim();
+                
+                if (searchTerm) {
+                    showNotification(`Searching for "${searchTerm}"...`, 'info');
+                    
+                    // In a real app, this would trigger an API call or filter students
+                    // For demo, we'll simulate searching
+                    setTimeout(() => {
+                        showNotification(`Found 12 students matching "${searchTerm}"`, 'success');
+                    }, 500);
+                } else {
+                    showNotification('Please enter a search term.', 'warning');
+                }
+            });
+            
+            // Allow pressing Enter to search
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
