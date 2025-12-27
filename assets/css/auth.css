@@ -30,7 +30,8 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(46, 196, 182, 0.25);
 }
 
-.login-header {
+.login-header,
+.register-header {
     background: linear-gradient(135deg, var(--primary-color), #3e92cc);
     border-radius: 15px 15px 0 0;
 }
@@ -51,4 +52,56 @@ body {
 .divider span {
     padding: 0 10px;
     color: #6c757d;
+}
+.register-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.role-option {
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.role-option:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(46, 196, 182, 0.05);
+}
+
+.role-option.active {
+    border-color: var(--accent-color);
+    background-color: rgba(46, 196, 182, 0.1);
+}
+
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.progress {
+    height: 8px;
+}
+
+input::placeholder{
+    font-size: 13px;
 }
