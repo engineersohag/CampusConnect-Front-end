@@ -87,3 +87,54 @@ footer {
         padding: 60px 0;
     }
 }
+
+input::placeholder{
+    font-size: 14px !important;
+}
+
+.filter-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.page-header {
+    background: linear-gradient(rgba(10, 36, 99, 0.9), rgba(10, 36, 99, 0.8)), url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0;
+}
+
+.pagination-modern .page-item {
+    margin: 0 5px; 
+}
+
+.pagination-modern .page-link {
+    border: none;
+    border-radius: 8px !important; 
+    color: #444;
+    padding: 10px 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fff;
+}
+
+.pagination-modern .page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+}
+
+.pagination-modern .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+}
+
+.pagination-modern .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    color: #ccc;
+    box-shadow: none;
+}
